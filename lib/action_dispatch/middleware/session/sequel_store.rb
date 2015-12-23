@@ -1,6 +1,12 @@
 require 'sequel'
 require 'action_dispatch/middleware/session/abstract_store'
 
+# TODO: remove this once rspec-rails supports rails >= 5
+require 'rack/session/abstract/id'
+if not Rack::Session::Abstract.const_defined?(:ENV_SESSION_OPTIONS_KEY)
+  Rack::Session::Abstract.const_set(:ENV_SESSION_OPTIONS_KEY, Rack::RACK_SESSION_OPTIONS)
+end
+
 # Implements Sequel model based session store.
 
 module ActionDispatch
